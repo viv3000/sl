@@ -1,0 +1,277 @@
+<html>
+	<header>
+	</header>
+	<body>
+		<div class="main">
+			<div class="anime-block">
+				<h2>Правила обращения с книгами</h2>
+				<div class="jigsaw1 phrase hidden green">
+					<span class="t"></span><span class="r"></span><span class="b"></span><span class="l"></span>
+					<span class="text">Не рисовать, не писать ничего в книгах</span>
+				</div>
+				<div class="jigsaw2 phrase hidden yellow">
+					<span class="t"></span><span class="r"></span><span class="b"></span><span class="l"></span>
+					<span class="text">Не вырывать листы, не вырезать картинки</span>
+				</div>
+				<div class="jigsaw1 phrase hidden blue">
+					<span class="t"></span><span class="r"></span><span class="b"></span><span class="l"></span>
+					<span class="text">Не перегибать книги, чтобы не выпадали листы</span>
+				</div>
+				<div class="jigsaw2 phrase hidden gray">
+					<span class="t"></span><span class="r"></span><span class="b"></span><span class="l"></span>
+					<span class="text">Не читать книги во время еды</span>
+				</div>
+				<div class="jigsaw1 phrase hidden red">
+					<span class="t"></span><span class="r"></span><span class="b"></span><span class="l"></span>
+					<span class="text">Пользоваться закладкой</span>
+				</div>
+				<div class="jigsaw2 phrase hidden deepPink">
+					<span class="t"></span><span class="r"></span><span class="b"></span><span class="l"></span>
+					<span class="text">Не класть в книги карандаши и ручки, чтобы не порвать их корешок</span>
+				</div>
+			</div>
+			<div class="action-block">
+				<button onclick="prev()"><</button>
+				<button onclick="next()">></button>
+			</div>
+
+
+		<div class="unset" id="mask1"></div>
+		<div class="unset" id="mask2"></div>
+		<audio class="hidden" controls>
+			<source src="chpunk.mp3">
+		</audio>
+		</div>
+	</body>
+
+
+</html>
+<style>
+.unset {
+	position: fixed;
+	top: 0;
+}
+.green, .green span {
+	background: #5af;
+	color: white;
+}
+.yellow, .yellow span {
+	background: yellow;
+	color: blue;
+}
+.blue, .blue span {
+	background: #a5f;
+	color: #ff7;
+}
+.gray, .gray span {
+	background: #afa;
+	color: blue;
+}
+.red, .red span {
+	background: #22a;
+	color: white;
+}
+.deepPink, .deepPink  span {
+	background: #f56;
+	color: #ff7;
+}
+
+</style>
+
+<style>
+.phrase {
+	font-size: 1.2em;
+	padding: 20px;
+	width: 80vw;
+	height: min-content;
+}
+
+.jigsaw1, .jigsaw2 {
+  height: 6em;
+  position: relative;
+  -webkit-border-radius: .5em;
+  -moz-border-radius: .5em;
+  border-radius: .5em;
+  cursor: pointer;
+}
+
+.text {
+  display: block;
+  color: #fff;
+  font-size: 2.5em;
+  font-width: 600;
+  text-align: center;
+  padding: 1.9em 0 0 1.2em;
+  position: relative;
+  background: transparent !important;
+}
+
+.t, .b, .l, .r{
+	position: absolute;
+	width: 2em;
+	height: 2em;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+	border-radius: 100%;
+}
+
+.t {
+	top: -1.5em;
+}
+
+.b {
+	bottom: -10px;
+}
+.r, .l {
+	top: 2em;
+}
+
+#mask1{
+	mask: url(#masking1);
+}
+
+.jigsaw1 {
+	mask: url(#masking1);
+	.t {
+		left: 30%;
+	}
+	.b {
+		left: 80%;
+		background-color: rgba(0,0,0,0);
+	}
+	.r {
+		right: -1.5em;
+	}
+}
+
+.jigsaw2 {
+	mask: url(#masking2);
+	.t {
+		left: 80%;
+	}
+	.b{
+		left: 30%;
+		background-color: rgba(0,0,0,0);
+	}
+	.l {
+		left: -1.5em;
+	}
+}
+
+</style>
+
+<style>
+body{
+	margin: 0
+}
+.main{
+	background-image: linear-gradient(#afa, #f56, #a5f); 
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	width: 100vw;
+	overflow: hidden;
+	position: absolute;
+}
+.action-block, .anime-block{
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+.anime-block {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	max-height: 80vh;
+	text-align: center;
+}
+
+h2, button {
+	font-size: 3em;
+}
+.phrase .text {
+	margin-left: 100px;
+	padding-top: 0;
+}
+
+.hidden{
+	position: absolute;
+	left: 150vw;
+}
+
+.animation {
+	animation-duration: 2s;
+	animation-name: slidein;
+}
+@keyframes slidein {
+  from {
+    translate: 150vw 0;
+    scale: 200% 1;
+  }
+
+  to {
+    translate: 0 0;
+    scale: 100% 1;
+  }
+}
+</style>
+
+<script>
+let counter = 0;
+let next = async () => {
+	createMask1(document.getElementsByClassName("phrase")[0].offsetWidth, document.getElementsByClassName("phrase")[0].offsetHeight)
+	createMask2(document.getElementsByClassName("phrase")[0].offsetWidth, document.getElementsByClassName("phrase")[0].offsetHeight)
+	document.getElementsByClassName("phrase")[counter].classList.remove("hidden")
+	document.getElementsByClassName("phrase")[counter].classList.add("animation")
+	counter = counter+1
+	setTimeout( ()=>document.getElementsByTagName("audio")[0].play(), 1700)
+}
+let prev = () => {
+	counter = counter-1
+	document.getElementsByClassName("phrase")[counter].classList.add("hidden")
+	document.getElementsByClassName("phrase")[counter].classList.remove("animation")
+}
+let createMask2 = (w, h) => {
+	let rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+	let svg = `
+			<svg xmlns="http://www.w3.org/2000/svg">
+				<mask id="masking2">
+					<path d="
+						M${-2*rem} ${-2*rem} 
+						V${h}
+						H${w}
+						V${-2*rem} 
+						H0
+					" style="fill:white;"/>
+					<circle r="${rem*1.2}" cx="${(30.1/100*w)+1*rem}" cy="${h-10}" fill="red" style="fill:black;"/>
+				</mask>
+			</svg> 
+		`.trim()
+	document.getElementById("mask2").innerHTML = svg
+}
+let createMask1 = (w, h) => {
+	let rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+	let svg = `
+			<svg xmlns="http://www.w3.org/2000/svg">
+				<mask id="masking1">
+					<path d="
+						M0 ${-2*rem} 
+						V${h}
+						H${w+2*rem}
+						V${-2*rem} 
+						H0
+					" style="fill:white;"/>
+					<circle r="${rem*1.2}" cx="${(80.1/100*w)+1*rem}" cy="${h-10}" fill="red" style="fill:black;"/>
+				</mask>
+			</svg> 
+		`.trim()
+	document.getElementById("mask1").innerHTML = svg
+}
+createMask1(document.getElementsByClassName("phrase")[0].offsetWidth, document.getElementsByClassName("phrase")[0].offsetHeight)
+createMask2(document.getElementsByClassName("phrase")[0].offsetWidth, document.getElementsByClassName("phrase")[0].offsetHeight)
+
+addEventListener("resize", (event) => {
+	createMask1(document.getElementsByClassName("phrase")[0].offsetWidth, document.getElementsByClassName("phrase")[0].offsetHeight)
+	createMask2(document.getElementsByClassName("phrase")[0].offsetWidth, document.getElementsByClassName("phrase")[0].offsetHeight)
+});
+</script>
